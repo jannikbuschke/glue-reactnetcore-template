@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>JannikB.DDD.NetcoreReact</id>
+    <version>0.2.0</version>
+    <description>
+      A template for a ddd application based on netcore and react
+    </description>
+    <authors>Jannik Buschke</authors>
+    <packageTypes>
+      <packageType name="Template" />
+    </packageTypes>
+  </metadata>
+</package>
