@@ -39,6 +39,8 @@ namespace TemplateName.Api
                 options =>
                 {
                     options.GroupNameFormat = "'v'VVV";
+                    options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
+                    options.AssumeDefaultVersionWhenUnspecified = true;
                 });
 
             services.AddMvc()
@@ -57,7 +59,6 @@ namespace TemplateName.Api
             {
                 cfg.AddCollectionMappers();
             });
-
 
             services.AddMediatR(typeof(Startup).Assembly);
 
@@ -106,7 +107,13 @@ namespace TemplateName.Api
 
             app.UseHttpsRedirection();
 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                  name: "mvc",
+                  template: "{controller=Home}/{action=Index}/{id?}"
+                );
+            });
 
             app.Map("/api", builder =>
             {
