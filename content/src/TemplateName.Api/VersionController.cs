@@ -1,4 +1,6 @@
-﻿namespace TemplateName.Api
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace TemplateName.Api
 {
     [ApiVersion("1.0")]
     [Route("api/[controller]")]
