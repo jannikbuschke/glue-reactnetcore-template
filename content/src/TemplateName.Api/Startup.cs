@@ -1,27 +1,32 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using AutoMapper.EquivalencyExpression;
+using MediatR;
+using Microsoft.AspNet.OData.Builder;
+using Microsoft.AspNet.OData.Extensions;
+using Microsoft.AspNet.OData.Formatter;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Net.Http.Headers;
+using Newtonsoft.Json;
 using Npgsql;
 using Serilog;
 using System;
 using System.Data;
-using MediatR;
-using Newtonsoft.Json;
-using AutoMapper;
-using AutoMapper.EquivalencyExpression;
+using System.Linq;
 using System.Net;
-using Microsoft.AspNetCore.Http;
+using TemplateName.Infrastructure;
 
 namespace TemplateName.Api
 {
     public class Startup
     {
-        private const string CorsAllowAny = "AllowAnyOrigin";
-
         public IConfiguration Configuration { get; }
 
         public Startup(IHostingEnvironment env, IConfiguration configuration)
@@ -35,14 +40,6 @@ namespace TemplateName.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvcCore().AddVersionedApiExplorer(
-                options =>
-                {
-                    options.GroupNameFormat = "'v'VVV";
-                    options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
-                    options.AssumeDefaultVersionWhenUnspecified = true;
-                });
-
             services.AddMvc()
                 .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1)
                 .AddJsonOptions(options =>
@@ -50,8 +47,31 @@ namespace TemplateName.Api
                     options.SerializerSettings.Formatting = Formatting.Indented;
                     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 });
-            services.AddApiVersioning(options => options.ReportApiVersions = true);
-            services.AddCustomSwaggerGen(services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>());
+
+            services.AddVersionedApiExplorer(o => o.GroupNameFormat = "'v'VVV");
+
+            services.AddApiVersioning(options =>
+            {
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new ApiVersion(3, 0);
+                options.ReportApiVersions = true;
+            });
+            services.AddOData().EnableApiVersioning();
+
+            //workaround for swagger/odata/api-versioning integrationg: https://github.com/OData/WebApi/issues/1177#issuecomment-358659774
+            services.AddMvcCore(options =>
+            {
+                foreach (var outputFormatter in options.OutputFormatters.OfType<ODataOutputFormatter>().Where(_ => _.SupportedMediaTypes.Count == 0))
+                {
+                    outputFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/prs.odatatestxx-odata"));
+                }
+                foreach (var inputFormatter in options.InputFormatters.OfType<ODataInputFormatter>().Where(_ => _.SupportedMediaTypes.Count == 0))
+                {
+                    inputFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/prs.odatatestxx-odata"));
+                }
+            });
+
+            services.AddSwaggerDocument();
 
             services.AddOptions();
 
@@ -67,11 +87,13 @@ namespace TemplateName.Api
                 configuration.RootPath = "TemplateName.Client/build";
             });
 
-            //services.AddDbContext<SampleDbContext>(options=>{
-            //options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=AgendaScheduler-dev;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-            //    options.UseInMemoryDatabase("inmem.db");
-            //    options.EnableSensitiveDataLogging(env.IsDevelopment());
-            //});
+            services.AddDbContext<SampleDbContext>(options =>
+            {
+                //options.UseSqlite(Configuration.GetConnectionString("Sqlite"));
+                //options.UseSqlServer(Configuration.GetConnectionString("MsSqlLocalDb"));
+                options.UseInMemoryDatabase(Configuration.GetConnectionString("InmemoryDb"));
+                //options.EnableSensitiveDataLogging(env.IsDevelopment());
+            });
 
             var connectionString = Configuration.GetConnectionString("Default");
 
@@ -87,7 +109,9 @@ namespace TemplateName.Api
             IApplicationBuilder app,
             IHostingEnvironment env,
             ILoggerFactory loggerFactory,
-            IApiVersionDescriptionProvider provider)
+            IApiVersionDescriptionProvider provider,
+            VersionedODataModelBuilder modelBuilder
+        )
         {
             if (env.IsDevelopment())
             {
@@ -113,6 +137,10 @@ namespace TemplateName.Api
                   name: "mvc",
                   template: "{controller=Home}/{action=Index}/{id?}"
                 );
+
+                routes.Select().Expand().Filter().OrderBy().MaxTop(100).Count();
+                routes.MapVersionedODataRoutes("odata", "odata", modelBuilder.GetEdmModels());
+                routes.EnableDependencyInjection();
             });
 
             app.Map("/api", builder =>
@@ -125,9 +153,7 @@ namespace TemplateName.Api
             });
 
             app.UseSwagger();
-            app.UseCustomSwaggerUI(provider, pathBase);
-
-            app.UseSpaStaticFiles();
+            app.UseSwaggerUi3();
 
             app.UseSpa(spa =>
             {

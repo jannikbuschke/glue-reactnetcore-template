@@ -1,33 +1,58 @@
-﻿using System;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Serilog;
+using Serilog.Core;
+using System;
+using System.IO;
 
 namespace TemplateName.Api
 {
     public class Program
     {
-        private static IConfiguration Configuration { get; } = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-            .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true)
-            .AddEnvironmentVariables()
-            .Build();
+        private static string EnvironmentName => Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
+
+        private static IConfiguration Configuration {
+            get
+            {
+                var environment = EnvironmentName;
+
+                return new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                    .AddJsonFile($"appsettings.{EnvironmentName}.json", optional: true, reloadOnChange: true)
+                    .AddEnvironmentVariables()
+                    .Build();
+            }
+        }
+
+        private static Logger GetPreStartLogger()
+        {
+            return EnvironmentName == "Production"
+                ? new LoggerConfiguration()
+                    .WriteTo.RollingFile("log/log-{Date}.txt")
+                    .CreateLogger()
+                : new LoggerConfiguration()
+                    .WriteTo.Console()
+                    .CreateLogger();
+        }
+
 
         public static int Main(string[] args)
         {
-            Log.Logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(Configuration)
-                .Enrich.FromLogContext()
-                .CreateLogger();
+            Log.Logger = GetPreStartLogger();
+            var name = typeof(Program).Namespace;
+            Log.Information($"Starting {name}");
 
             try
             {
-                Log.Information("Build host and run " + typeof(Program).Namespace);
-                var host = BuildWebHost(args).Build();
+                Log.Logger = new LoggerConfiguration()
+                    .ReadFrom.Configuration(Configuration)
+                    .Enrich.FromLogContext()
+                    .Enrich.WithProperty("Application", typeof(Program).Namespace)
+                    .CreateLogger();
+
+                Log.Information($"Build host {name}");
+                var host = CreateWebhost(args).Build();
                 host.Run();
                 return 0;
 
@@ -43,14 +68,15 @@ namespace TemplateName.Api
             }
         }
 
-
-        public static IWebHostBuilder BuildWebHost(string[] args) =>
-            new WebHostBuilder()
+        public static IWebHostBuilder CreateWebhost(string[] args)
+        {
+            return new WebHostBuilder()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseKestrel()
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .UseConfiguration(Configuration)
                 .UseSerilog();
+        }
     }
 }
