@@ -1,11 +1,11 @@
 {
   "$schema": "http://json.schemastore.org/template",
   "author": "Jannik Buschke",
-  "classifications": ["ASPNETCore"],
+  "classifications": ["AspNetCore", "React"],
   "groupIdentity": "JannikB",
-  "identity": "JannikB.DDD.AspNetCoreReact",
-  "name": "A DDD template powered by asp net core and react",
-  "shortName": "jannikb-ddd",
+  "identity": "JannikB.Glue.AspNetCoreReact",
+  "name": "A template for AspNetCore and React",
+  "shortName": "netcore-react",
   "tags": {
     "language": "C#",
     "type": "project"
