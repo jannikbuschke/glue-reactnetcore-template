@@ -9,6 +9,7 @@
     "typescript-tslint-plugin": "^0.2.1"
   },
   "scripts": {
+    "start": "lerna run start",
     "bootstrap": "lerna bootstrap --hoist",
     "build:module": "rmdir src\\TemplateName.Module\\TemplateName.Module.Client\\lib /s /q && tsc -p src\\TemplateName.Module\\TemplateName.Module.Client",
     "build:app": "cd src/TemplateName.Module/TemplateName.Module.Client && npm run build",

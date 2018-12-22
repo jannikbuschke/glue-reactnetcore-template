@@ -63,8 +63,8 @@
   </ItemGroup>
 
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
+    <!--<Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />-->
 
     <ItemGroup>
       <DistFiles Include="$(SpaRoot)build\**; $(SpaRoot)build-ssr\**" />
@@ -75,13 +75,13 @@
     </ItemGroup>
   </Target>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <None Update="CurrentCommit.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="git rev-parse --short HEAD &gt; &quot;$(ProjectDir)\CurrentCommit.txt&quot;" />
-  </Target>
+    <Exec Command="git rev-parse HEAD &gt; &quot;$(ProjectDir)\CurrentCommit.txt&quot;" />
+  </Target>-->
   
 </Project>
