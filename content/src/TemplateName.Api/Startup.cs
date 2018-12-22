@@ -25,6 +25,25 @@ using TemplateName.Infrastructure;
 
 namespace TemplateName.Api
 {
+
+    public class DataContextFactory : IDesignTimeDbContextFactory<DataContext>
+    {
+        public DataContext CreateDbContext(string[] args)
+        {
+            // IConfigurationRoot configuration = new ConfigurationBuilder()
+            //     .SetBasePath(Directory.GetCurrentDirectory())
+            //     .AddJsonFile("appsettings.json")
+            //     .Build();
+
+            var builder = new DbContextOptionsBuilder<DataContext>();
+
+            //var connectionString = configuration.GetConnectionString("DefaultConnection");
+
+            builder.UseSqlServer("Data Source=simagendaschedulerapp-dbserver.database.windows.net;Initial Catalog=SIMAgendaSchedulerApp-prod_db;User ID=agenda-planner-root;Password=7-fgs7qan01n6r-y9o7sp7;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",options=>options.MigrationAssembly("TemplateName.Api"));
+
+            return new DataContext(builder.Options);
+        }
+    }
     public class Startup
     {
         public IConfiguration Configuration { get; }
