@@ -1,0 +1,14 @@
+{
+  "folders": [
+	{
+		"path": "."
+	},
+	{
+		"path": "src\\TemplateName.Api\\TemplateName.Client"
+	},
+	{
+		"path": "src\\TemplateName.Module\\TemplateName.Module.Client"
+	}
+],
+  "settings": {}
+}
