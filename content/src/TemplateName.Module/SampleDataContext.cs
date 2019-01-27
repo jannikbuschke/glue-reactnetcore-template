@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TemplateName.Module.Contacts;
 
 namespace TemplateName.Infrastructure
 {
@@ -6,7 +7,7 @@ namespace TemplateName.Infrastructure
     {
         public SampleDbContext(DbContextOptions<SampleDbContext> options) : base(options) { }
 
-        //public DbSet<Person> Persons { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
