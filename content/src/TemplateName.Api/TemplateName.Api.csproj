@@ -22,8 +22,8 @@
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="5.1.0" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="5.1.0" />
+    <PackageReference Include="MediatR" Version="6.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="6.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,7 +34,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Odata" Version="7.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.OData.Versioning" Version="3.0.0-beta2" />
     <PackageReference Include="Microsoft.AspNetCore.OData.Versioning.ApiExplorer" Version="3.0.0-beta2" />
-    <PackageReference Include="NSwag.AspNetCore" Version="12.0.3" />
+    <PackageReference Include="NSwag.AspNetCore" Version="12.0.13" />
 
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="3.0.0-beta2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="3.0.0-beta2" />
@@ -47,7 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Serilog" Version="2.7.1" />
+    <PackageReference Include="Serilog" Version="2.8.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="2.1.1" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="2.0.2" />
     <PackageReference Include="Serilog.Extensions.Logging.File" Version="1.1.0" />
@@ -75,13 +75,4 @@
     </ItemGroup>
   </Target>
 
-  <!--<ItemGroup>
-    <None Update="CurrentCommit.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="git rev-parse HEAD &gt; &quot;$(ProjectDir)\CurrentCommit.txt&quot;" />
-  </Target>-->
-  
 </Project>

@@ -10,7 +10,6 @@ namespace TemplateName.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Postgres: modelBuilder.HasDefaultSchema("public");
         }
     }
 
