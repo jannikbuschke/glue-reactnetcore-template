@@ -1,0 +1,7 @@
+{
+  "packages": [
+    "src/TemplateName.Api/TemplateName.Client",
+    "src/TemplateName.Module/TemplateName.Module.Client"
+  ],
+  "version": "0.0.0"
+}

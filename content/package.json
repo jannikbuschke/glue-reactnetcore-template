@@ -1,0 +1,25 @@
+{
+  "name": "root",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^3.8.0",
+    "tslint": "^5.12.0",
+    "tslint-react": "^3.6.0",
+    "typescript": "3.2.2",
+    "typescript-tslint-plugin": "^0.2.1"
+  },
+  "scripts": {
+    "start": "lerna run start",
+    "bootstrap": "lerna bootstrap --hoist",
+    "build:module": "rmdir src\\TemplateName.Module\\TemplateName.Module.Client\\lib /s /q && tsc -p src\\TemplateName.Module\\TemplateName.Module.Client",
+    "build:app": "cd src/TemplateName.Module/TemplateName.Module.Client && npm run build",
+    "prebuild:all": "npm run bootstrap",
+    "build:all": "npm run build:module && npm run build:app",
+    "postbuild:all": "rmdir build /s /q && move src\\TemplateName.Module\\TemplateName.Module.Client\\build .",
+    "tslint": "tslint -p . -t verbose"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all"
+  }
+}

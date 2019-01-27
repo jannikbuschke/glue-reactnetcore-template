@@ -2,9 +2,11 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>JannikB.Glue.NetcoreReact</id>
-    <version>0.3.0</version>
+    <version>0.4.0</version>
     <description>
-      A template project based on react and dotnet core
+      A template project based on react and dotnet core.
+      
+      Run 'dotnet new -i JannikB.Glue.NetcoreReact' to install the template. Then inside a folder of your choice (the applications root folder) run 'dotnet new netcore-react' or 'dotnet new netcore-react --name YourProjectName'. In the project root run 'npm run bootstrap', 'npm run build:module' and 'lerna run start'. Open the Visual Studio .sln file and hit F5 to start debugging.
     </description>
     <authors>Jannik Buschke</authors>
     <packageTypes>
