@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Threading.Tasks;
 using TemplateName.Infrastructure;
 using TemplateName.Module.Contacts;
 
@@ -32,7 +33,7 @@ namespace TemplateName.Api.Features
         }
 
         [HttpPost("create-contact")]
-        public IActionResult Create(CreateContactRequest request)
+        public async Task<IActionResult> Create(CreateContactRequest request)
         {
             ctx.Contacts.Add(new Contact
             {
@@ -41,6 +42,7 @@ namespace TemplateName.Api.Features
                 Email = request.Email,
                 Phone = request.Phone
             });
+            await ctx.SaveChangesAsync();
             return Ok();
         }
     }
