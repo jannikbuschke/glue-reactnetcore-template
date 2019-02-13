@@ -11,7 +11,7 @@ namespace TemplateName.Api
     {
         private static string EnvironmentName => Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
 
-        private static IConfiguration Configuration {
+        public static IConfiguration Configuration {
             get
             {
                 var environment = EnvironmentName;
@@ -53,6 +53,21 @@ namespace TemplateName.Api
 
                 Log.Information($"Build host {name}");
                 var host = CreateWebhost(args).Build();
+                using (var scope = host.Services.CreateScope())
+                {
+                    var ctx = scope.ServiceProvider.GetRequiredService<SampleDbContext>();
+                    if (EnvironmentName == "Development" || EnvironmentName == "Test")
+                    {
+                        ctx.Database.EnsureDeleted();
+                        ctx.Database.Migrate();
+                        SeedDevelopmentData(ctx);
+                    }
+                    else
+                    {
+                        ctx.Database.Migrate();
+                    }
+
+                }
                 host.Run();
                 return 0;
 
@@ -77,6 +92,26 @@ namespace TemplateName.Api
                 .UseStartup<Startup>()
                 .UseConfiguration(Configuration)
                 .UseSerilog();
+        }
+
+        private static void SeedDevelopmentData(SampleDbContext ctx)
+        {
+            ctx.Contacts.Add(
+                new Contact
+                {
+                    Email = "sample@email.com",
+                    FirstName = "Max",
+                    LastName = "Müller",
+                    Phone = "012345"
+                });
+            ctx.Contacts.Add(new Contact
+            {
+                Email = "angelo@email.com",
+                FirstName = "Angelo",
+                LastName = "Merte"
+            }
+            );
+            ctx.SaveChanges();
         }
     }
 }

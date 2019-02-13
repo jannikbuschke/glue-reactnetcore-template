@@ -90,8 +90,11 @@ namespace TemplateName.Api
             services.AddDbContext<SampleDbContext>(options =>
             {
                 //options.UseSqlite(Configuration.GetConnectionString("Sqlite"));
-                //options.UseSqlServer(Configuration.GetConnectionString("MsSqlLocalDb"));
-                options.UseInMemoryDatabase(Configuration.GetConnectionString("InmemoryDb"));
+                options.UseSqlServer(Configuration.GetConnectionString("MsSqlLocalDb"), dbOptions =>
+                 {
+                     dbOptions.MigrationsAssembly("TemplateName.Module");
+                 });
+                //options.UseInMemoryDatabase(Configuration.GetConnectionString("InmemoryDb"));
                 //options.EnableSensitiveDataLogging(env.IsDevelopment());
             });
 

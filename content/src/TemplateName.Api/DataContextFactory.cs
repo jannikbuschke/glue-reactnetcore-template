@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 using TemplateName.Infrastructure;
 
 namespace TemplateName.Api
@@ -8,16 +9,16 @@ namespace TemplateName.Api
     {
         public SampleDbContext CreateDbContext(string[] args)
         {
-            // IConfigurationRoot configuration = new ConfigurationBuilder()
-            //     .SetBasePath(Directory.GetCurrentDirectory())
-            //     .AddJsonFile("appsettings.json")
-            //     .Build();
+            var configuration = Program.Configuration;
 
             var builder = new DbContextOptionsBuilder<SampleDbContext>();
 
-            //var connectionString = configuration.GetConnectionString("DefaultConnection");
+            var connectionString = configuration.GetConnectionString("MsSqlLocalDb");
 
-            builder.UseSqlServer("Data Source=simagendaschedulerapp-dbserver.database.windows.net;Initial Catalog=SIMAgendaSchedulerApp-prod_db;User ID=agenda-planner-root;Password=7-fgs7qan01n6r-y9o7sp7;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False", options => options.MigrationsAssembly(typeof(SampleDbContext).Assembly.FullName));
+            builder.UseSqlServer(connectionString, options =>
+             {
+                 options.MigrationsAssembly("TemplateName.Module");
+             });
 
             return new SampleDbContext(builder.Options);
         }
