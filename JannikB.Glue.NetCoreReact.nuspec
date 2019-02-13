@@ -2,15 +2,18 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>JannikB.Glue.NetcoreReact</id>
-    <version>0.6.0</version>
+    <version>0.6.1</version>
+    <title>Glue Toolkit Template</title>
     <description>
-      A template project based on react and dotnet core.
-      
-      Run 'dotnet new -i JannikB.Glue.NetcoreReact' to install the template. Then inside a folder of your choice (the applications root folder) run 'dotnet new netcore-react' or 'dotnet new netcore-react --name YourProjectName'. In the project root run 'npm run bootstrap', 'npm run build:module' and 'lerna run start'. Open the Visual Studio .sln file and hit F5 to start debugging.
+      A template project based on react and dotnet core. 
+      Run 'dotnet new -i JannikB.Glue.NetcoreReact::*' to install the latest template. 
+      Then inside a folder of your choice (the applications root folder) run 'dotnet new netcore-react' or 'dotnet new netcore-react --name YourProjectName'. In the project root run 'npm install' and 'npm run start'. Open another terminal and run .\run.ps1 or open the Visual Studio .sln file and hit F5 to start debugging.
     </description>
     <authors>Jannik Buschke</authors>
+    <projectUrl>https://github.com/jannikbuschke/glue-reactnetcore-template/projectUrl</projectUrl>
     <packageTypes>
       <packageType name="Template" />
     </packageTypes>
+     <copyright>Copyright 2019 Jannik Buschke</copyright>
   </metadata>
 </package>
