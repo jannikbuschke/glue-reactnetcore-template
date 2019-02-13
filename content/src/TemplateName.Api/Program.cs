@@ -1,9 +1,13 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Core;
 using System;
 using System.IO;
+using TemplateName.Infrastructure;
+using TemplateName.Module.Contacts;
 
 namespace TemplateName.Api
 {

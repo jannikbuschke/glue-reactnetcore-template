@@ -41,19 +41,19 @@ namespace TemplateName.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-                .AddJsonOptions(options =>
-                {
-                    options.SerializerSettings.Formatting = Formatting.Indented;
-                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                });
+               .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1)
+               .AddJsonOptions(options =>
+               {
+                   options.SerializerSettings.Formatting = Formatting.Indented;
+                   options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+               });
 
             services.AddVersionedApiExplorer(o => o.GroupNameFormat = "'v'VVV");
 
             services.AddApiVersioning(options =>
             {
                 options.AssumeDefaultVersionWhenUnspecified = true;
-                options.DefaultApiVersion = new ApiVersion(3, 0);
+                options.DefaultApiVersion = new ApiVersion(1, 0);
                 options.ReportApiVersions = true;
             });
             services.AddOData().EnableApiVersioning();
@@ -146,14 +146,18 @@ namespace TemplateName.Api
                 routes.EnableDependencyInjection();
             });
 
-            app.Map("/api", builder =>
+            foreach (var path in new string[] { "/api", "/odata" })
             {
-                builder.Run(async context =>
+                app.Map(path, builder =>
                 {
-                    context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-                    await context.Response.WriteAsync("");
+                    builder.Run(async context =>
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                        await context.Response.WriteAsync("");
+                    });
                 });
-            });
+            }
+
 
             app.UseSwagger();
             app.UseSwaggerUi3();
