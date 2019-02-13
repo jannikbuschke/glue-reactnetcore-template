@@ -1,59 +1,50 @@
 import * as React from 'react';
-import { InputField, FormikDebug } from '@jbuschke/formik-antd';
-import { Formik } from 'formik';
-import { message, Button } from 'antd';
+import { FormikDebug } from '@jbuschke/formik-antd';
+import { DefaultContactEditor } from './DefaultContactEditor';
+import {
+  DetailView,
+  createPostSubmitHandler,
+  PostAction,
+  ValidationErrors,
+} from '@jbuschke/react-glue';
+import { createValidationHandler } from '../Validation/createValidationHandler';
 
-interface Contact {
+export interface Contact {
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
 }
 
+const validationHandler = createValidationHandler(
+  '/api/Contacts/validate-create-contact?api-version=1.0',
+);
+const submitHandler = createPostSubmitHandler(
+  '/api/Contacts/create-contact?api-version=1.0',
+);
+
 export const CreateContact = (props: any) => {
   return (
-    <Formik<Contact>
+    <DetailView
       initialValues={{
         email: '',
         firstName: '',
         lastName: '',
         phone: '',
       }}
-      onSubmit={async values => {
-        const response = await fetch(
-          '/api/Contacts/create-contact?api-version=1.0',
-          {
-            method: 'POST',
-            body: JSON.stringify(values),
-            headers: { 'content-type': 'application/json' },
-          },
-        );
-        if (response.ok) {
-          message.success('success');
-        } else {
-          message.error('error: ' + response.statusText);
-        }
-      }}
-    >
-      {formik => (
-        <div style={{ margin: 30 }}>
-          <div style={{ display: 'grid', gridGap: 10, maxWidth: 500 }}>
-            <h3>Create Contact</h3>
-            <span>Firstname</span>
-            <InputField name="firstName" />
-            <span>Lastname</span>
-            <InputField name="lastName" />
-            <span>Email</span>
-            <InputField name="email" />
-            <span>Phone</span>
-            <InputField name="phone" />
-            <Button onClick={() => formik.handleSubmit()}>submit</Button>
-          </div>
-          <div>
+      validate={validationHandler}
+      onSubmit={submitHandler}
+      renderActions={props => (
+        <PostAction onClick={props.handleSubmit} loading={props.isSubmitting} />
+      )}
+      renderContent={() => (
+        <>
+          <DefaultContactEditor />
+          <div style={{ marginTop: 15 }}>
             <FormikDebug />
           </div>
-        </div>
+        </>
       )}
-    </Formik>
+    />
   );
 };

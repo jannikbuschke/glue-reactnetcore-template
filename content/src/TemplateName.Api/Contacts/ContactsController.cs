@@ -1,48 +1,56 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using TemplateName.Api.Validation;
 using TemplateName.Infrastructure;
 using TemplateName.Module.Contacts;
 
 namespace TemplateName.Api.Features
 {
+
     public class CreateContactRequest
     {
         public string FirstName { get; set; }
+        [Required]
         public string LastName { get; set; }
+        [Required, EmailAddress]
         public string Email { get; set; }
+        [Phone]
         public string Phone { get; set; }
     }
 
-    [Route("api/[controller]")]
+    [Route("api/Contacts")]
     [ApiVersion("1.0")]
     [ApiController]
-    public class ContactsController : ControllerBase
+    public class ContactCommandsController : ControllerBase
     {
         private readonly SampleDbContext ctx;
 
-        public ContactsController(SampleDbContext ctx)
+        public ContactCommandsController(SampleDbContext ctx)
         {
             this.ctx = ctx;
-        }
-
-        [HttpGet]
-        public IQueryable<Contact> Get()
-        {
-            return ctx.Contacts;
         }
 
         [HttpPost("create-contact")]
         public async Task<IActionResult> Create(CreateContactRequest request)
         {
-            ctx.Contacts.Add(new Contact
+            var contact = new Contact
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Email = request.Email,
                 Phone = request.Phone
-            });
+            };
+            ctx.Contacts.Add(contact);
             await ctx.SaveChangesAsync();
+            return Ok(contact);
+        }
+
+        [HttpPost("validate-create-contact")]
+        public ActionResult<IActionResult> ValidateCreate(CreateContactRequest request)
+        {
             return Ok();
         }
     }

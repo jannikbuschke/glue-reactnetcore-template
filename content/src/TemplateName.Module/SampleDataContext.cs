@@ -13,5 +13,4 @@ namespace TemplateName.Infrastructure
         {
         }
     }
-
 }
