@@ -2,10 +2,10 @@
   "$schema": "http://json.schemastore.org/template",
   "author": "Jannik Buschke",
   "classifications": ["AspNetCore", "React"],
-  "groupIdentity": "JannikB",
-  "identity": "JannikB.Glue.AspNetCoreReact",
-  "name": "A template for AspNetCore and React",
-  "shortName": "netcore-react",
+  "groupIdentity": "JBuschke",
+  "identity": "JBuschke.Glue.Starter",
+  "name": "Opinionated ASP.NET Core with React boilerplate",
+  "shortName": "glue-starter",
   "tags": {
     "language": "C#",
     "type": "project"

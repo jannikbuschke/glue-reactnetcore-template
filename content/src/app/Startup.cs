@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using AutoMapper.EquivalencyExpression;
 using MediatR;
 using Microsoft.AspNet.OData.Builder;
@@ -84,7 +84,7 @@ namespace TemplateName.Api
 
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "TemplateName.Client/build";
+                configuration.RootPath = "web-client/build";
             });
 
             services.AddDbContext<SampleDbContext>(options =>
@@ -157,7 +157,7 @@ namespace TemplateName.Api
 
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = "TemplateName.Client";
+                spa.Options.SourcePath = "web-client";
 
                 if (env.IsDevelopment())
                 {

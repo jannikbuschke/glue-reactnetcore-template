@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemplateName.Api", "src\TemplateName.Api\TemplateName.Api.csproj", "{40AC4A95-1724-4DDC-AE55-9E541A02E2C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "app.Api", "src\app\TemplateName.Api.csproj", "{40AC4A95-1724-4DDC-AE55-9E541A02E2C1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemplateName.Api.Test", "src\TemplateName.Api.Test\TemplateName.Api.Test.csproj", "{0296B3D6-2F07-4102-B61D-4C380C3DB05A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "app-test", "src\app-test\TemplateName.Api.Test.csproj", "{0296B3D6-2F07-4102-B61D-4C380C3DB05A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemplateName.Module", "src\TemplateName.Module\TemplateName.Module.csproj", "{305AE9AD-D9A4-40EF-9B63-6BC957D466B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "module", "src\module\TemplateName.Module.csproj", "{305AE9AD-D9A4-40EF-9B63-6BC957D466B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

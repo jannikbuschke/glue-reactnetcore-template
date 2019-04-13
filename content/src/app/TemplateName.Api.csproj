@@ -6,12 +6,12 @@
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
-    <SpaRoot>TemplateName.Client\</SpaRoot>
+    <SpaRoot>web-client\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="TemplateName.Client\" />
+    <Folder Include="web-client\" />
     <Folder Include="Properties\" />
   </ItemGroup>
   
@@ -59,12 +59,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TemplateName.Module\TemplateName.Module.csproj" />
+    <ProjectReference Include="..\module\TemplateName.Module.csproj" />
   </ItemGroup>
 
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
-    <!--<Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />-->
 
     <ItemGroup>
       <DistFiles Include="$(SpaRoot)build\**; $(SpaRoot)build-ssr\**" />
