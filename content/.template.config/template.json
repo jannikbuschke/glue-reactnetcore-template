@@ -5,7 +5,7 @@
   "groupIdentity": "JBuschke",
   "identity": "JBuschke.Glue.Starter",
   "name": "Opinionated ASP.NET Core with React boilerplate",
-  "shortName": "glue-starter",
+  "shortName": "glue",
   "tags": {
     "language": "C#",
     "type": "project"

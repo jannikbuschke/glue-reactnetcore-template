@@ -1,42 +1,37 @@
-# introduction
+Starter template for [glue](http://jannikbuschke.de/glue/docs/get-started/introduction)
 
-A project template that provides an opinionated starting point for a full stack application based on react and asp net core.
+# Introduction
 
-# use-cases / why
+<h2>
+An educated pick of libraries, integrations, opinions and boilerplate to build modular and evolvable business web applications.
+</h2>
 
-React and asp net core both are amazing technologies that focus and solve specific problems (building UIs and handling webrequests). By beeing clear about their intentions and not doing too much they can be great at solving their problems. However other problems that arise in your typical web or business-application are left out for the developer.
+At its core are **React**, a JavaScript UI library developed by Facebook, and **ASP .NET CORE**, a cross-platform backend web framework developed by Microsoft. Additionally this project gives an educated pick of additional **libraries**, **tooling** and **boilerplate** to ease the development of business applications. The library picks and boilerplate provide a very good starting point to write business applications productively by beeing opinionated. However the project setup is just boilerplate and due to its modularity you can remove or replace any library and bring in your own.
 
-Often following problem-areas need to be tackled:
+In that sense the glue project tries to give a highly productive setup while not sacrificing freedom (also that makes the setup adaptable to new emerging libraries).
 
-- Consistent set of ui controls
-- Forms
-- Client-side routing
-- Consistent self-documented api
-- CQRS
+## Main Picks
 
-Fortunatly other developers already provide solutions to these problems. This project picks some of these and bundles them into a template.
+- UI Controls (Ant Design)
+- Navigation and Layouts (Ant Design + Reach Router)
+- Forms (Formik + Ant Design + server side Asp Net Core validation)
+- CQRS (Odata for reads + MediatR for commands)
+- Datagrid (dx-grid + Odata)
 
-# batteries
+## Probably upcoming Features
 
-## react
+- Ready-to-use Business Modules (i.e. Audit-Log, Workflow etc...)
+- Security (Asp .Net Core + IdentityServer)
+- Datafetching (Suspense)
+- Live/Bidirectional communication (SignalR)
+- Hot Module Replacement (HRM) for React
 
-cra 2.1
-typescript
-ant-d
-react-router
-immer
+## Evaluating
 
-## asp net core
+- Workflow Core
+- GraphQL
 
-automapper
-mediatr
-odata
-api versioning
-nswag
-serilog
+## Extended
 
-# requirements
-
-dotnet core 2.1
-npm
-git
+- Documentation (Gatsby + Antd)
+- CI/CD (AzureDevops)
