@@ -1,21 +1,26 @@
-﻿using Microsoft.AspNetCore.Hosting;
+using System;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 using Serilog.Core;
-using System;
-using System.IO;
 
 namespace TemplateName.Api
 {
     public class Program
     {
-        private static string EnvironmentName => Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
-
-        private static IConfiguration Configuration {
+        private static string EnvironmentName
+        {
             get
             {
-                var environment = EnvironmentName;
+                return Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
+            }
+        }
 
+        private static IConfiguration Configuration
+        {
+            get
+            {
                 return new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
                     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -29,7 +34,7 @@ namespace TemplateName.Api
         {
             return EnvironmentName == "Production"
                 ? new LoggerConfiguration()
-                    .WriteTo.RollingFile("log/log-{Date}.txt")
+                    .WriteTo.RollingFile("logs/log-start-{Date}.txt")
                     .CreateLogger()
                 : new LoggerConfiguration()
                     .WriteTo.Console()
@@ -40,7 +45,7 @@ namespace TemplateName.Api
         public static int Main(string[] args)
         {
             Log.Logger = GetPreStartLogger();
-            var name = typeof(Program).Namespace;
+            string name = typeof(Program).Namespace;
             Log.Information($"Starting {name}");
 
             try
@@ -52,7 +57,7 @@ namespace TemplateName.Api
                     .CreateLogger();
 
                 Log.Information($"Build host {name}");
-                var host = CreateWebhost(args).Build();
+                IWebHost host = CreateWebhost(args).Build();
                 host.Run();
                 return 0;
 

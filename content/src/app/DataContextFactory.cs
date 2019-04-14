@@ -13,7 +13,7 @@ namespace TemplateName.Api
             //     .AddJsonFile("appsettings.json")
             //     .Build();
 
-            var builder = new DbContextOptionsBuilder<SampleDbContext>();
+            DbContextOptionsBuilder<SampleDbContext> builder = new DbContextOptionsBuilder<SampleDbContext>();
 
             //var connectionString = configuration.GetConnectionString("DefaultConnection");
 
