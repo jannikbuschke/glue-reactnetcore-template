@@ -1,4 +1,4 @@
 {
-  "packages": ["src/app/web-client", "src/module/TemplateName.Module.Client"],
+  "packages": ["src/app/web-client"],
   "version": "0.0.0"
 }

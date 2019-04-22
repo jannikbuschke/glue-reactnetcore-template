@@ -1,14 +1,11 @@
 {
   "folders": [
-	{
-		"path": "."
-	},
-	{
-		"path": "src\\app\\web-client"
-	},
-	{
-		"path": "src\\module\\TemplateName.Module.Client"
-	}
-],
+    {
+      "path": "."
+    },
+    {
+      "path": "src\\app\\web-client"
+    }
+  ],
   "settings": {}
 }
