@@ -1,11 +1,13 @@
 using System;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Core;
 
-namespace TemplateName.Api
+namespace TemplateName
 {
     public class Program
     {
@@ -17,7 +19,7 @@ namespace TemplateName.Api
             }
         }
 
-        private static IConfiguration Configuration
+        public static IConfiguration Configuration
         {
             get
             {
@@ -58,6 +60,22 @@ namespace TemplateName.Api
 
                 Log.Information($"Build host {name}");
                 IWebHost host = CreateWebhost(args).Build();
+
+                using (IServiceScope scope = host.Services.CreateScope())
+                {
+                    DataContext db = scope.ServiceProvider.GetRequiredService<DataContext>();
+                    db = scope.ServiceProvider.GetRequiredService<DataContext>();
+                    if (EnvironmentName == "Development" || EnvironmentName == "Test")
+                    {
+                        //db.Database.EnsureDeleted();
+                        db.Database.Migrate();
+                    }
+                    else
+                    {
+                        db.Database.Migrate();
+                    }
+                }
+
                 host.Run();
                 return 0;
 

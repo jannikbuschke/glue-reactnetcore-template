@@ -18,9 +18,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
 using Serilog;
-using TemplateName.Infrastructure;
 
-namespace TemplateName.Api
+namespace TemplateName
 {
     public class Startup
     {
@@ -50,7 +49,7 @@ namespace TemplateName.Api
             services.AddApiVersioning(options =>
             {
                 options.AssumeDefaultVersionWhenUnspecified = true;
-                options.DefaultApiVersion = new ApiVersion(3, 0);
+                options.DefaultApiVersion = new ApiVersion(1, 0);
                 options.ReportApiVersions = true;
             });
             services.AddOData().EnableApiVersioning();
@@ -84,9 +83,9 @@ namespace TemplateName.Api
                 configuration.RootPath = "web-client/build";
             });
 
-            services.AddDbContext<SampleDbContext>(options =>
+            services.AddDbContext<DataContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("MsSqlLocalDb"));
+                options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
         }
 
@@ -108,21 +107,10 @@ namespace TemplateName.Api
                 app.UseHsts();
             }
 
-            //string pathBase = Configuration["ASPNETCORE_APPL_PATH"] ?? Configuration["APPL_PATH"] ?? "/";
-            //if (!string.IsNullOrEmpty(pathBase))
-            //{
-            //    app.UsePathBase(pathBase);
-            //}
-
             app.UseHttpsRedirection();
 
             app.UseMvc(routes =>
             {
-                //routes.MapRoute(
-                //  name: "mvc",
-                //  template: "{controller=Home}/{action=Index}/{id?}"
-                //);
-
                 routes.Select().Expand().Filter().OrderBy().MaxTop(100).Count();
                 routes.MapVersionedODataRoutes("odata", "odata", modelBuilder.GetEdmModels());
                 routes.EnableDependencyInjection();
