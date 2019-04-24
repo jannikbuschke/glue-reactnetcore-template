@@ -4,6 +4,7 @@
     <id>JBuschke.Glue.Starter</id>
     <version>0.9.1</version>
     <description>
+    Opinionated Asp .Net Core + React template
       https://github.com/jannikbuschke/glue-reactnetcore-template
     </description>
     <authors>Jannik Buschke</authors>
