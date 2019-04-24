@@ -11,5 +11,6 @@
     "type": "project"
   },
   "sourceName": "TemplateName",
-  "preferNameDirectory": false
+  "preferNameDirectory": false,
+  "defaultName": "MyApp"
 }
