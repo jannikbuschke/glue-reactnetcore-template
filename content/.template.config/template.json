@@ -5,7 +5,7 @@
     "AspNetCore",
     "React"
   ],
-  "groupIdentity": "JBuschke",
+  "groupIdentity": "JBuschke.Glue",
   "identity": "JBuschke.Glue.Starter",
   "name": "Opinionated ASP.NET Core + React boilerplate",
   "shortName": "gluestarter",
