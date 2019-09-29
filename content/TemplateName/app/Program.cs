@@ -43,7 +43,6 @@ namespace TemplateName
                     .CreateLogger();
         }
 
-
         public static int Main(string[] args)
         {
             Log.Logger = GetPreStartLogger();

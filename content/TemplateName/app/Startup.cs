@@ -80,7 +80,7 @@ namespace TemplateName
 
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "web-client/build";
+                configuration.RootPath = "web/build";
             });
 
             services.AddDbContext<DataContext>(options =>
@@ -92,8 +92,6 @@ namespace TemplateName
         public void Configure(
             IApplicationBuilder app,
             IHostingEnvironment env,
-            ILoggerFactory loggerFactory,
-            IApiVersionDescriptionProvider provider,
             VersionedODataModelBuilder modelBuilder
         )
         {
@@ -116,27 +114,28 @@ namespace TemplateName
                 routes.EnableDependencyInjection();
             });
 
-            //TODO /api & /odata
-            app.Map("/api", builder =>
+            foreach (string route in new string[] { "/api", "/odata" })
             {
-                builder.Run(async context =>
+                app.Map(route, builder =>
                 {
-                    context.Response.StatusCode = (int) HttpStatusCode.NotFound;
-                    await context.Response.WriteAsync("");
+                    builder.Run(async context =>
+                    {
+                        context.Response.StatusCode = (int) HttpStatusCode.NotFound;
+                        await context.Response.WriteAsync("");
+                    });
                 });
-            });
+            }
 
             app.UseSwagger();
             app.UseSwaggerUi3();
 
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = "web-client";
+                spa.Options.SourcePath = "web";
 
                 if (env.IsDevelopment())
                 {
                     spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");
-                    //spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
         }

@@ -3,25 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "bootstrap": "4.3.1",
-    "normalizr": "3.3.0",
     "@devexpress/dx-react-core": "1.10.5",
     "@devexpress/dx-react-grid": "1.10.5",
     "@devexpress/dx-react-grid-bootstrap3": "1.10.5",
     "@jbuschke/dx-odata-grid": "0.2.2",
-    "@jbuschke/formik-antd": "0.12.2",
+    "@jbuschke/formik-antd": "1.4.2",
     "@jbuschke/react-glue": "0.5.2",
-    "@jbuschke/react-odata": "^0.2.2",
+    "@jbuschke/react-odata": "0.2.2",
     "@reach/router": "1.2.1",
-    "msal": "0.2.4",
-    "antd": "3.16.5",
-    "formik": "1.5.2",
+    "antd": "3.23.5",
+    "bootstrap": "4.3.1",
+    "formik": "1.5.8",
     "immer": "3.1.1",
     "moment": "2.24.0",
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
-    "react-scripts": "2.1.1",
-    "styled-components": "4.2.0"
+    "msal": "1.1.3",
+    "normalizr": "3.4.1",
+    "react": "16.10.1",
+    "react-dom": "16.10.1",
+    "react-scripts": "3.1.2",
+    "styled-components": "4.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -30,12 +30,12 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "@types/jest": "24.0.11",
-    "@types/node": "11.13.4",
-    "@types/react": "16.8.11",
-    "@types/react-dom": "16.8.4",
+    "@types/jest": "24.0.18",
+    "@types/node": "12.7.8",
+    "@types/react": "16.9.3",
+    "@types/react-dom": "16.9.1",
     "@reach/router": "1.2.1",
-    "@types/styled-components": "4.1.14"
+    "@types/styled-components": "4.1.19"
   },
   "browserslist": [
     ">0.2%",

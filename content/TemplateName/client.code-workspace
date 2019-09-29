@@ -4,7 +4,7 @@
       "path": "."
     },
     {
-      "path": "src\\app\\web-client"
+      "path": "app\\web"
     }
   ],
   "settings": {}

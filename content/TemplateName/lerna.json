@@ -1,4 +1,4 @@
 {
-  "packages": ["src/app/web-client"],
+  "packages": ["app/web"],
   "version": "0.0.0"
 }
