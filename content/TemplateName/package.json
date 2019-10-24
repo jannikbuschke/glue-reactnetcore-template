@@ -2,13 +2,14 @@
   "name": "root",
   "private": true,
   "devDependencies": {
-    "lerna": "3.13.1",
-    "typescript": "3.3.3333"
+    "lerna": "3.13.1"
   },
   "scripts": {
     "first-start": "npm install && npm run bootstrap && npm run tsc && npm run start",
+    "start": "lerna run start --stream",
+    "watch": "lerna run watch --stream",
     "tsc": "lerna run tsc",
-    "start": "lerna run start",
-    "bootstrap": "lerna bootstrap --hoist"
+    "bootstrap": "lerna bootstrap --hoist",
+    "lerna": "lerna"
   }
 }

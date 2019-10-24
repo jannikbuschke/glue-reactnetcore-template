@@ -3,16 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@devexpress/dx-react-core": "1.10.5",
-    "@devexpress/dx-react-grid": "1.10.5",
-    "@devexpress/dx-react-grid-bootstrap3": "1.10.5",
     "@jbuschke/dx-odata-grid": "0.2.2",
-    "@jbuschke/formik-antd": "1.4.2",
+    "@jbuschke/formik-antd": "1.5.4",
     "@jbuschke/react-glue": "0.5.2",
     "@jbuschke/react-odata": "0.2.2",
     "@reach/router": "1.2.1",
-    "antd": "3.23.5",
-    "bootstrap": "4.3.1",
+    "antd": "3.24.2",
     "formik": "1.5.8",
     "immer": "3.1.1",
     "moment": "2.24.0",
@@ -20,8 +16,7 @@
     "normalizr": "3.4.1",
     "react": "16.10.1",
     "react-dom": "16.10.1",
-    "react-scripts": "3.1.2",
-    "styled-components": "4.4.0"
+    "react-scripts": "3.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -35,7 +30,7 @@
     "@types/react": "16.9.3",
     "@types/react-dom": "16.9.1",
     "@reach/router": "1.2.1",
-    "@types/styled-components": "4.1.19"
+    "typescript":"3.6.4"
   },
   "browserslist": [
     ">0.2%",
