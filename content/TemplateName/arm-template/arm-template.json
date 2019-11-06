@@ -71,7 +71,7 @@
   },
   "variables": {
     "hostingPlanName": "[concat(parameters('appName'),'-hostingplan')]",
-    "webSiteName": "[concat(parameters('appName'),'-website', parameters('suffix'))]",
+    "webSiteName": "[concat(parameters('appName'),'-app-', parameters('suffix'))]",
     "sqlserverName": "[concat(parameters('appName'),'-sqlserver-',uniqueString(resourceGroup().id))]",
     "databaseName": "[concat(parameters('appName'),'-db-', parameters('suffix'))]",
     "keyvaultName": "[concat(parameters('appName'),'-vlt-', parameters('suffix'))]"
