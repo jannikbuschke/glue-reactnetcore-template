@@ -1,8 +1,11 @@
 using System;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Azure.KeyVault;
+using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.AzureKeyVault;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Core;
@@ -97,6 +100,24 @@ namespace TemplateName
                 .UseKestrel()
                 .UseIISIntegration()
                 .UseStartup<Startup>()
+                .ConfigureAppConfiguration((context, config) =>
+                {
+                    IConfigurationRoot cfg = config.Build();
+                    string name = cfg.GetValue<string>("KeyVaultName");
+
+                    if (context.HostingEnvironment.IsProduction() && !string.IsNullOrEmpty(name))
+                    {
+                        string keyvaultDns = $"https://{name}.vault.azure.net/";
+                        Log.Information("Using KeyVault {KeyVault}", keyvaultDns);
+                        AzureServiceTokenProvider azureServiceTokenProvider = new AzureServiceTokenProvider();
+                        KeyVaultClient keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
+                        config.AddAzureKeyVault(keyvaultDns, keyVaultClient, new DefaultKeyVaultSecretManager());
+                    }
+                    else
+                    {
+                        Log.Information("No KeyVault configured");
+                    }
+                })
                 .UseConfiguration(Configuration)
                 .UseSerilog();
         }

@@ -85,7 +85,7 @@ namespace TemplateName
 
             services.AddDbContext<DataContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("Default"));
+                options.UseSqlServer(Configuration.GetValue<string>("ConnectionString"));
             });
         }
 

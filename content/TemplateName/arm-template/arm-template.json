@@ -161,6 +161,17 @@
       },
       "resources": [
         {
+          "type":"config",
+          "name":"appsettings",
+          "apiVersion":"2016-03-01",
+          "dependsOn": [
+            "[variables('webSiteName')]"
+          ],
+          "properties":{
+            "KeyVaultName": "[variables('keyvaultName')]"
+          }
+        },
+        {
           "apiVersion": "2016-03-01",
           "type": "config",
           "name": "connectionstrings",
