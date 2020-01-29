@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from "react"
 
 export const Introduction = (props: any) => {
   return (
@@ -6,5 +6,5 @@ export const Introduction = (props: any) => {
       <h1>Introduction</h1>
       <main>lorem ipsum</main>
     </div>
-  );
-};
+  )
+}

@@ -6,15 +6,14 @@ using MediatR;
 using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNet.OData.Formatter;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
 using Serilog;
@@ -36,6 +35,11 @@ namespace TemplateName
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                });
+
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddJsonOptions(options =>
@@ -66,8 +70,6 @@ namespace TemplateName
                     inputFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/prs.odatatestxx-odata"));
                 }
             });
-
-            services.AddSwaggerDocument();
 
             services.AddOptions();
 
@@ -107,6 +109,8 @@ namespace TemplateName
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
+
             app.UseMvc(routes =>
             {
                 routes.Select().Expand().Filter().OrderBy().MaxTop(100).Count();
@@ -125,9 +129,6 @@ namespace TemplateName
                     });
                 });
             }
-
-            app.UseSwagger();
-            app.UseSwaggerUi3();
 
             app.UseSpa(spa =>
             {
