@@ -12,7 +12,7 @@ steps:
   displayName: 'NuGet pack'
   inputs:
     command: pack
-    packagesToPack: JBuschke.Glue.Starter.nuspec
+    packagesToPack: app/JBuschke.Glue.Starter.nuspec
 
 - task: NuGetCommand@2
   displayName: 'NuGet push'

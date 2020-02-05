@@ -12,7 +12,7 @@ steps:
   displayName: 'NuGet pack'
   inputs:
     command: pack
-    packagesToPack: RAANC.Module.nuspec
+    packagesToPack: module/RAANC.Module.nuspec
 
 - task: NuGetCommand@2
   displayName: 'NuGet push'
