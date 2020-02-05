@@ -1,3 +1,5 @@
+name: react-antd-aspnetcore-module
+
 trigger:
 - master
 - release/*
