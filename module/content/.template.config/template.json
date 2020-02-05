@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Jannik Buschke",
+  "classifications": [
+    "AspNetCore",
+    "React"
+  ],
+  "groupIdentity": "JBuschke.ReactAntdAspNetCore",
+  "identity": "JBuschke.RAANC.Module",
+  "name": "ASP.NET Core, React, Ant Design, Typescript modular boilerplate",
+  "shortName": "raanc-module",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "TemplateName",
+  "preferNameDirectory": false,
+  "defaultName": "MyModule"
+}
