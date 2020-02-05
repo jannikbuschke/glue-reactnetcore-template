@@ -58,21 +58,6 @@ namespace TemplateName
             });
             services.AddOData().EnableApiVersioning();
 
-            //workaround for swagger/odata/api-versioning integrationg: https://github.com/OData/WebApi/issues/1177#issuecomment-358659774
-            services.AddMvcCore(options =>
-            {
-                foreach (ODataOutputFormatter outputFormatter in options.OutputFormatters.OfType<ODataOutputFormatter>().Where(_ => _.SupportedMediaTypes.Count == 0))
-                {
-                    outputFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/prs.odatatestxx-odata"));
-                }
-                foreach (ODataInputFormatter inputFormatter in options.InputFormatters.OfType<ODataInputFormatter>().Where(_ => _.SupportedMediaTypes.Count == 0))
-                {
-                    inputFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/prs.odatatestxx-odata"));
-                }
-            });
-
-            services.AddOptions();
-
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddCollectionMappers();

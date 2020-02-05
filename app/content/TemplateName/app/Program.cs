@@ -61,7 +61,7 @@ namespace TemplateName
                     .CreateLogger();
 
                 Log.Information($"Build host {name}");
-                IWebHost host = CreateWebhost(args).Build();
+                IWebHost host = CreateWebHostBuilder(args).Build();
 
                 using (IServiceScope scope = host.Services.CreateScope())
                 {
@@ -93,7 +93,7 @@ namespace TemplateName
             }
         }
 
-        public static IWebHostBuilder CreateWebhost(string[] args)
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
             return new WebHostBuilder()
                 .UseContentRoot(Directory.GetCurrentDirectory())
