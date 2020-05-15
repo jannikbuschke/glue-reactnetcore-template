@@ -5,10 +5,10 @@
     "AspNetCore",
     "React"
   ],
-  "groupIdentity": "JBuschke.Glue",
-  "identity": "JBuschke.Glue.Starter",
+  "groupIdentity": "Glow",
+  "identity": "Glow.App.Template",
   "name": "Opinionated ASP.NET Core + React boilerplate",
-  "shortName": "gluestarter",
+  "shortName": "glow-app",
   "tags": {
     "language": "C#",
     "type": "project"

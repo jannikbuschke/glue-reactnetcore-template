@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>JBuschke.RAANC.Module</id>
+    <id>Glow.App.Template</id>
     <version>0.2.0</version>
     <description>
-      ASP.NET Core, React, Ant Design, Typescript modular boilerplate
+      Opinionated Asp .Net Core + React template
       https://github.com/jannikbuschke/glue-reactnetcore-template
     </description>
     <authors>Jannik Buschke</authors>

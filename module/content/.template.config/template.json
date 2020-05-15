@@ -5,10 +5,10 @@
     "AspNetCore",
     "React"
   ],
-  "groupIdentity": "JBuschke.ReactAntdAspNetCore",
-  "identity": "JBuschke.RAANC.Module",
+  "groupIdentity": "Glow",
+  "identity": "Glow.Module.Template",
   "name": "ASP.NET Core, React, Ant Design, Typescript modular boilerplate",
-  "shortName": "raanc-module",
+  "shortName": "glow-module",
   "tags": {
     "language": "C#",
     "type": "project"

@@ -10,11 +10,17 @@ pool:
 steps:
 - checkout: self
   submodules: 'recursive'
+
+- task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: '5.2'
+
 - task: NuGetCommand@2
   displayName: 'NuGet pack'
   inputs:
     command: pack
-    packagesToPack: RAANC.Module.nuspec
+    packagesToPack: module/glow.module.nuspec
+
 
 - task: NuGetCommand@2
   displayName: 'NuGet push'
