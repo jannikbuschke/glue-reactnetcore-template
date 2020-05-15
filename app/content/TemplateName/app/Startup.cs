@@ -23,7 +23,7 @@ namespace TemplateName
     {
         public IConfiguration Configuration { get; }
 
-        public Startup(IHostingEnvironment env, IConfiguration configuration)
+        public Startup(IWebHostEnvironment env, IConfiguration configuration)
         {
             Configuration = configuration;
 
@@ -39,9 +39,15 @@ namespace TemplateName
                 {
                 });
 
-            services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-                .AddJsonOptions(options =>
+
+            services.AddApplicationInsightsTelemetry();
+
+            services.AddMvc(options =>
+                {
+                    options.EnableEndpointRouting = false;
+                })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                .AddNewtonsoftJson(options =>
                 {
                     options.SerializerSettings.Formatting = Formatting.Indented;
                     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -60,7 +66,7 @@ namespace TemplateName
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddCollectionMappers();
-            });
+            }, typeof(Startup).Assembly);
 
             services.AddMediatR(typeof(Startup).Assembly);
 
@@ -77,7 +83,7 @@ namespace TemplateName
 
         public void Configure(
             IApplicationBuilder app,
-            IHostingEnvironment env,
+            IWebHostEnvironment env,
             VersionedODataModelBuilder modelBuilder
         )
         {
@@ -100,6 +106,15 @@ namespace TemplateName
                 routes.Select().Expand().Filter().OrderBy().MaxTop(100).Count();
                 routes.MapVersionedODataRoutes("odata", "odata", modelBuilder.GetEdmModels());
                 routes.EnableDependencyInjection();
+            });
+
+            app.Map("", v =>
+            {
+                v.Run(async ctx =>
+                {
+                    ctx.Response.StatusCode = (int) HttpStatusCode.OK;
+                    await ctx.Response.WriteAsync("hello world");
+                });
             });
 
             foreach (string route in new string[] { "/api", "/odata" })
