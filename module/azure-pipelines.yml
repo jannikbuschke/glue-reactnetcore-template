@@ -8,6 +8,8 @@ pool:
   vmImage: 'windows-latest'
 
 steps:
+- checkout: self
+  submodules: 'recursive'
 - task: NuGetCommand@2
   displayName: 'NuGet pack'
   inputs:
