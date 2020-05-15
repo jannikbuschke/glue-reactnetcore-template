@@ -1,3 +1,6 @@
 [submodule "app/content/TemplateName"]
 	path = app/content/TemplateName
 	url = https://github.com/jannikbuschke/glow-app-template.git
+[submodule "module/content/TemplateName"]
+	path = module/content/TemplateName
+	url = https://github.com/jannikbuschke/glow-module-template.git
