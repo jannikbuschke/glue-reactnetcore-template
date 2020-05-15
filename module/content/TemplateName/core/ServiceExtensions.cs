@@ -1,4 +1,3 @@
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace TemplateName.Core
@@ -7,7 +6,6 @@ namespace TemplateName.Core
     {
         public static IServiceCollection AddTemplateName(this IServiceCollection services)
         {
-            services.AddMediatR();
             return services;
         }
     }

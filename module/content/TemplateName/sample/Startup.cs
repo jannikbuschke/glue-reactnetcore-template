@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using TemplateName.Core;
-using TemplateName.Ui;
 
 namespace TemplateName.Sample
 {
@@ -19,11 +19,14 @@ namespace TemplateName.Sample
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.EnableEndpointRouting = false;
+            });
             services.AddTemplateName();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -31,7 +34,6 @@ namespace TemplateName.Sample
             }
 
             app.UseMvc();
-            app.UseTemplateNameUi();
 
             //app.UseSpa(spa =>
             //{
