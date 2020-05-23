@@ -5,7 +5,7 @@
     "AspNetCore",
     "React"
   ],
-  "groupIdentity": "Glow",
+  "groupIdentity": "Glow.App.Template",
   "identity": "Glow.App.Template",
   "name": "Opinionated ASP.NET Core + React boilerplate",
   "shortName": "glow-app",

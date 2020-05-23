@@ -5,7 +5,7 @@
     "AspNetCore",
     "React"
   ],
-  "groupIdentity": "Glow",
+  "groupIdentity": "Glow.Module.Template",
   "identity": "Glow.Module.Template",
   "name": "ASP.NET Core, React, Ant Design, Typescript modular boilerplate",
   "shortName": "glow-module",
