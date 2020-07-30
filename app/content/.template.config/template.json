@@ -15,5 +15,14 @@
   },
   "sourceName": "TemplateName",
   "preferNameDirectory": false,
-  "defaultName": "MyApp"
+  "defaultName": "MyApp",
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "exclude": [ "*.git" ]
+        }
+      ]
+    }
+  ],
 }
