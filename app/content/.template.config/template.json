@@ -20,7 +20,7 @@
     {
       "modifiers": [
         {
-          "exclude": [ "*.git" ]
+          "exclude": [ "*.git", "**/*.git" ]
         }
       ]
     }
